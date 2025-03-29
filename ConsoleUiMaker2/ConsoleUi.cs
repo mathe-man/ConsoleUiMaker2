@@ -8,5 +8,5 @@ namespace ConsoleUiMaker2;
 
 public class ConsoleUi
 {
-    
+    public static readonly string UiElementType = "ConsoleUi";
 }

@@ -1,0 +1,23 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v9.0",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v9.0": {
+      "ConsoleUiMaker2/1.0.0": {
+        "runtime": {
+          "ConsoleUiMaker2.dll": {}
+        }
+      }
+    }
+  },
+  "libraries": {
+    "ConsoleUiMaker2/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    }
+  }
+}
