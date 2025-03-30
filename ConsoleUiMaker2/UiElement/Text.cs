@@ -133,14 +133,14 @@ public class Text : IUiElement
             Console.SetCursorPosition(X, Y - 1);
             Console.Write(upBorder);
         }
-        catch (ArgumentOutOfRangeException e) {}
+        catch (ArgumentOutOfRangeException) {}
         try
         {
             
             Console.SetCursorPosition(X, Y + Content.Count);
             Console.Write(upBorder);
         }
-        catch (ArgumentOutOfRangeException e) {}
+        catch (ArgumentOutOfRangeException) {}
         try
         {
             for (int i = 0; i < Content.Count; i++)
@@ -149,7 +149,7 @@ public class Text : IUiElement
                 Console.Write(Borders["Vertical"]);
             }
         }
-        catch (ArgumentOutOfRangeException e) {}
+        catch (ArgumentOutOfRangeException) {}
         try
         {
             for (int i = 0; i < Content.Count; i++)
@@ -158,7 +158,7 @@ public class Text : IUiElement
                 Console.Write(Borders["Vertical"]);
             }
         }
-        catch (ArgumentOutOfRangeException e) {}
+        catch (ArgumentOutOfRangeException) {}
         
         //Box corners
         try
@@ -166,25 +166,25 @@ public class Text : IUiElement
             Console.SetCursorPosition(X-1, Y-1);
             Console.Write(Borders["TopLeftCorner"]);
         }
-        catch (ArgumentOutOfRangeException e) {}
+        catch (ArgumentOutOfRangeException) {}
         try
         {
             Console.SetCursorPosition(X-1, Y+Content.Count);
             Console.Write(Borders["BottomLeftCorner"]);
         }
-        catch (ArgumentOutOfRangeException e) {}
+        catch (ArgumentOutOfRangeException) {}
         try
         {
             Console.SetCursorPosition(X+Length, Y-1);
             Console.Write(Borders["TopRightCorner"]);
         }
-        catch (ArgumentOutOfRangeException e) {}
+        catch (ArgumentOutOfRangeException) {}
         try
         {
             Console.SetCursorPosition(X+Length, Y+Content.Count);
             Console.Write(Borders["BottomRightCorner"]);
         }
-        catch (ArgumentOutOfRangeException e) {}
+        catch (ArgumentOutOfRangeException) {}
 
     }
 
@@ -199,14 +199,14 @@ public class Text : IUiElement
             Console.SetCursorPosition(X, Y - 1);
             Console.Write(upBorder);
         }
-        catch (ArgumentOutOfRangeException e) {}
+        catch (ArgumentOutOfRangeException) {}
         try
         {
             
             Console.SetCursorPosition(X, Y + Content.Count);
             Console.Write(upBorder);
         }
-        catch (ArgumentOutOfRangeException e) {}
+        catch (ArgumentOutOfRangeException) {}
         try
         {
             for (int i = 0; i < Content.Count; i++)
@@ -215,7 +215,7 @@ public class Text : IUiElement
                 Console.Write(" ");
             }
         }
-        catch (ArgumentOutOfRangeException e) {}
+        catch (ArgumentOutOfRangeException) {}
         try
         {
             for (int i = 0; i < Content.Count; i++)
@@ -224,7 +224,7 @@ public class Text : IUiElement
                 Console.Write(" ");
             }
         }
-        catch (ArgumentOutOfRangeException e) {}
+        catch (ArgumentOutOfRangeException) {}
         
         //Box corners
         try
@@ -232,25 +232,25 @@ public class Text : IUiElement
             Console.SetCursorPosition(X-1, Y-1);
             Console.Write(" ");
         }
-        catch (ArgumentOutOfRangeException e) {}
+        catch (ArgumentOutOfRangeException) {}
         try
         {
             Console.SetCursorPosition(X-1, Y+Content.Count);
             Console.Write(" ");
         }
-        catch (ArgumentOutOfRangeException e) {}
+        catch (ArgumentOutOfRangeException) {}
         try
         {
             Console.SetCursorPosition(X+Length, Y-1);
             Console.Write(" ");
         }
-        catch (ArgumentOutOfRangeException e) {}
+        catch (ArgumentOutOfRangeException) {}
         try
         {
             Console.SetCursorPosition(X+Length, Y+Content.Count);
             Console.Write(" ");
         }
-        catch (ArgumentOutOfRangeException e) {}
+        catch (ArgumentOutOfRangeException) {}
         
     }
 }
