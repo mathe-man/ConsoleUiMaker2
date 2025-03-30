@@ -11,7 +11,7 @@ public class Text : IUiElement
     public List<Action> ClickActions {get; set;}
 
 
-    private List<string> _content;
+    private List<string> _content = ["No content set for this element"];
     public List<string> Content
     {
         get { return _content;}
@@ -29,7 +29,7 @@ public class Text : IUiElement
 
     public Dictionary<string , char> Borders = new ();
     
-    private bool _permanentBorder = false;
+    private bool _permanentBorder;
 
     public bool PermanentBorder
     {
