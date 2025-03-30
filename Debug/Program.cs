@@ -1,5 +1,4 @@
-﻿using System;
-using System.Data;
+﻿
 using ConsoleUiMaker2;
 using ConsoleUiMaker2.Characters;
 using ConsoleUiMaker2.UiElement;
