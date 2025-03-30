@@ -9,7 +9,11 @@ public static class Program
 {
     public static void Main(string[] args)
     {
-        DebugCharacters();
+        //DebugCharacters();
+        
+        
+        DebugUi();
+        Console.Read();
     }
 
 
@@ -24,16 +28,16 @@ public static class Program
 
     public static void DebugCharacters()
     {
-        Console.WriteLine("Box characters: " + (char)BoxCharacters.TopLeftCorner);
-        foreach (var character in Enum.GetValues(typeof(BoxCharacters)))
+        Console.WriteLine("Box characters: ");
+        foreach (BoxCharacters character in Enum.GetValues(typeof(BoxCharacters)))
         {
             Console.WriteLine($"{character}: {(char)character}");
         }
         
         Console.WriteLine("Round characters: ");
-        foreach (var character in Enum.GetValues(typeof(RoundCharacters)))
+        foreach (RoundCharacters character in Enum.GetValues(typeof(RoundCharacters)))
         {
-            Console.Write(character);
+            Console.WriteLine($"{character}: {(char)character}");
         }
     }
 }

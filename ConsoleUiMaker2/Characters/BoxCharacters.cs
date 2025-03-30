@@ -27,5 +27,5 @@ public enum BoxCharacters
     LightShadeSquare = 0x2591,
     MediumShadeSquare = 0x2592,
     DarkShadeSquare = 0x2593,
-    FilledSquare = 0x2588,
+    FilledSquare = 0x2588
 }

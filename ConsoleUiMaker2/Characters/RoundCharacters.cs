@@ -2,10 +2,10 @@ namespace ConsoleUiMaker2.Characters;
 
 public enum RoundCharacters
 {
-    TopLeftCorner = 0x250c,
-    TopRightCorner = 0x2510,
-    BottomLeftCorner = 0x2514,
-    BottomRightCorner = 0x2518,
+    TopLeftCorner = 0x256d,
+    TopRightCorner = 0x256e,
+    BottomLeftCorner = 0x2570,
+    BottomRightCorner = 0x256f,
     
     
     Cross = 0x253c,
@@ -18,5 +18,5 @@ public enum RoundCharacters
     
     EmptyCircle = 0x25ef,
     FilledCircle = 0x25cf,
-    SmallEmptyCircle = 0x25cb,
+    SmallEmptyCircle = 0x25cb
 }
