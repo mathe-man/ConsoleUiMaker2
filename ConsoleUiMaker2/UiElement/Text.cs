@@ -1,5 +1,3 @@
-using System.Net;
-using Microsoft.Win32.SafeHandles;
 
 using ConsoleUiMaker2.Characters;
 
@@ -28,15 +26,41 @@ public class Text : IUiElement
     }
 
     public int Length;
+
+    public Dictionary<string , char> Borders = new ();
     
-    public Text(List<string> content, int x, int y, List<Action>? clickActions = null)
+    
+    public Text(List<string> content, int x, int y, List<Action>? clickActions = null, string borderType = "box")
     {
         X = x;
         Y = y;
         Content = content;
         ClickActions = clickActions == null ? new List<Action>() : clickActions;
+        SetBorders(borderType);
         
         ConsoleUi.UiElementList.Add(this);
+    }
+    
+    public void SetBorders(string type)
+    {
+        if (type == "box")
+        {
+            Borders["Horizontal"] = (char)BoxCharacters.Horizontal;
+            Borders["Vertical"] = (char)BoxCharacters.Vertical;
+            Borders["TopLeftCorner"] = (char)BoxCharacters.TopLeftCorner;
+            Borders["TopRightCorner"] = (char)BoxCharacters.TopRightCorner;
+            Borders["BottomLeftCorner"] = (char)BoxCharacters.BottomLeftCorner;
+            Borders["BottomRightCorner"] = (char)BoxCharacters.BottomRightCorner;
+        }
+        else if (type == "round")
+        {
+            Borders["Horizontal"] = (char)RoundCharacters.Horizontal;
+            Borders["Vertical"] = (char)RoundCharacters.Vertical;
+            Borders["TopLeftCorner"] = (char)RoundCharacters.TopLeftCorner;
+            Borders["TopRightCorner"] = (char)RoundCharacters.TopRightCorner;
+            Borders["BottomLeftCorner"] = (char)RoundCharacters.BottomLeftCorner;
+            Borders["BottomRightCorner"] = (char)RoundCharacters.BottomRightCorner;
+        }
     }
 
 
@@ -84,7 +108,7 @@ public class Text : IUiElement
     public void DrawBorder()
     {
         string upBorder = "";
-        for (int i = 0; i < Length; i++) upBorder += (char)BoxCharacters.Horizontal;
+        for (int i = 0; i < Length; i++) upBorder += Borders["Horizontal"];
         
         //Sides
         try
@@ -105,7 +129,7 @@ public class Text : IUiElement
             for (int i = 0; i < Content.Count; i++)
             {
                 Console.SetCursorPosition(X - 1, Y + i);
-                Console.Write((char)BoxCharacters.Vertical);
+                Console.Write(Borders["Vertical"]);
             }
         }
         catch (ArgumentOutOfRangeException e) {}
@@ -114,7 +138,7 @@ public class Text : IUiElement
             for (int i = 0; i < Content.Count; i++)
             {
                 Console.SetCursorPosition(X + Length, Y + i);
-                Console.Write((char)BoxCharacters.Vertical);
+                Console.Write(Borders["Vertical"]);
             }
         }
         catch (ArgumentOutOfRangeException e) {}
@@ -123,25 +147,25 @@ public class Text : IUiElement
         try
         {
             Console.SetCursorPosition(X-1, Y-1);
-            Console.Write((char)BoxCharacters.TopLeftCorner);
+            Console.Write(Borders["TopLeftCorner"]);
         }
         catch (ArgumentOutOfRangeException e) {}
         try
         {
             Console.SetCursorPosition(X-1, Y+Content.Count);
-            Console.Write((char)BoxCharacters.BottomLeftCorner);
+            Console.Write(Borders["BottomLeftCorner"]);
         }
         catch (ArgumentOutOfRangeException e) {}
         try
         {
             Console.SetCursorPosition(X+Length, Y-1);
-            Console.Write((char)BoxCharacters.TopRightCorner);
+            Console.Write(Borders["TopRightCorner"]);
         }
         catch (ArgumentOutOfRangeException e) {}
         try
         {
             Console.SetCursorPosition(X+Length, Y+Content.Count);
-            Console.Write((char)BoxCharacters.BottomRightCorner);
+            Console.Write(Borders["BottomRightCorner"]);
         }
         catch (ArgumentOutOfRangeException e) {}
 

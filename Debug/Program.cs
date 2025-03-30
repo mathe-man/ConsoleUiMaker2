@@ -20,7 +20,7 @@ public static class Program
     public static void DebugUi()
     {
         Text myFirstText = new Text(["One line"], 4, 2);
-        Text mySecondText = new Text(["Two", "lines"], 1, 4);
+        Text mySecondText = new Text(["Two", "lines", "and more"], 2, 4, borderType:"round");
 
         myFirstText.Length = 30;
         
