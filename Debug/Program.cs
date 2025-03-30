@@ -20,12 +20,17 @@ public static class Program
     public static void DebugUi()
     {
         Text myFirstText = new Text(["One line"], 4, 2);
-        Text mySecondText = new Text(["Two", "lines", "and more"], 2, 4, borderType:"round");
+        Text mySecondText = new Text(["Two", "lines", "and more"], 2, 5, borderType:"round");
 
         myFirstText.Length = 30;
         
-        myFirstText.ClickActions.Add(() => { myFirstText.Content = ["A été clické"];  myFirstText.Render();});
-        
+        myFirstText.ClickActions.Add(() =>
+        {
+            myFirstText.PermanentBorder = !myFirstText.PermanentBorder;
+            if (myFirstText.PermanentBorder) myFirstText.Content = ["Border is permanent"];
+            else myFirstText.Content = ["Border isn't permanent       "];
+            myFirstText.Render();
+        });
         
         ConsoleUi.RunUi();
     }
