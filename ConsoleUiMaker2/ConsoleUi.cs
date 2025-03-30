@@ -4,6 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+using ConsoleUiMaker2.UiElement;
+
 namespace ConsoleUiMaker2;
 
 public static class ConsoleUi

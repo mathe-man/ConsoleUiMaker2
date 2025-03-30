@@ -1,4 +1,4 @@
-namespace ConsoleUiMaker2;
+namespace ConsoleUiMaker2.UiElement;
 
 public interface IUiElement
 {
