@@ -1,6 +1,8 @@
 using System.Net;
 using Microsoft.Win32.SafeHandles;
 
+using ConsoleUiMaker2.Characters;
+
 namespace ConsoleUiMaker2.UiElement;
 
 public class Text : IUiElement
@@ -82,7 +84,7 @@ public class Text : IUiElement
     public void DrawBorder()
     {
         string upBorder = "";
-        for (int i = 0; i < Length; i++) upBorder += "\u2500";
+        for (int i = 0; i < Length; i++) upBorder += (char)BoxCharacters.Horizontal;
         
         //Sides
         try
@@ -103,7 +105,7 @@ public class Text : IUiElement
             for (int i = 0; i < Content.Count; i++)
             {
                 Console.SetCursorPosition(X - 1, Y + i);
-                Console.Write("\u2502");
+                Console.Write((char)BoxCharacters.Vertical);
             }
         }
         catch (ArgumentOutOfRangeException e) {}
@@ -112,7 +114,7 @@ public class Text : IUiElement
             for (int i = 0; i < Content.Count; i++)
             {
                 Console.SetCursorPosition(X + Length, Y + i);
-                Console.Write("\u2502");
+                Console.Write((char)BoxCharacters.Vertical);
             }
         }
         catch (ArgumentOutOfRangeException e) {}
@@ -121,25 +123,25 @@ public class Text : IUiElement
         try
         {
             Console.SetCursorPosition(X-1, Y-1);
-            Console.Write("\u250c");
+            Console.Write((char)BoxCharacters.TopLeftCorner);
         }
         catch (ArgumentOutOfRangeException e) {}
         try
         {
             Console.SetCursorPosition(X-1, Y+Content.Count);
-            Console.Write("\u2514");
+            Console.Write((char)BoxCharacters.BottomLeftCorner);
         }
         catch (ArgumentOutOfRangeException e) {}
         try
         {
             Console.SetCursorPosition(X+Length, Y-1);
-            Console.Write("\u2510");
+            Console.Write((char)BoxCharacters.TopRightCorner);
         }
         catch (ArgumentOutOfRangeException e) {}
         try
         {
             Console.SetCursorPosition(X+Length, Y+Content.Count);
-            Console.Write("\u2518");
+            Console.Write((char)BoxCharacters.BottomRightCorner);
         }
         catch (ArgumentOutOfRangeException e) {}
 

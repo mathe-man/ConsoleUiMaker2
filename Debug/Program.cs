@@ -23,6 +23,10 @@ public static class Program
         Text mySecondText = new Text(["Two", "lines"], 1, 4);
 
         myFirstText.Length = 30;
+        
+        myFirstText.ClickActions.Add(() => { myFirstText.Content = ["A été clické"];  myFirstText.Render();});
+        
+        
         ConsoleUi.RunUi();
     }
 
