@@ -11,12 +11,12 @@ public static class Program
         //DebugCharacters();
         
         
-        DebugUi();
+        DebugText();
         Console.Read();
     }
 
 
-    public static void DebugUi()
+    public static void DebugText()
     {
         Text myFirstText = new Text(["One line"], 4, 2);
         Text mySecondText = new Text(["Two", "lines", "and more"], 2, 5, borderType:"round");
