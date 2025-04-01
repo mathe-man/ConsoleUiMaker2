@@ -26,18 +26,16 @@ public class ProgressBar : IUiElement
 
         ClickActions = clickActions ?? new List<Action>();
         Character = character ?? (char)BoxCharacters.FilledSquare;
+        
+        ConsoleUi.UiElementList.Add(this);
     }
 
-    public bool Progress(int amount = 1)
+    public bool Progress(bool updateScreen = true, int amount = 1)
     {
-        Steps += amount;
-        if (Steps >= TotalSteps)
-        {
-            Steps = TotalSteps;
-            return true;
-        }
+        Steps = Math.Clamp(Steps + amount, 0, TotalSteps);
+        if (updateScreen) Render();
 
-        return false;
+        return Steps == TotalSteps;
     }
     
     public void HandleKey(ConsoleKeyInfo keyInfo)
@@ -47,16 +45,24 @@ public class ProgressBar : IUiElement
     public void Click()
     {
         foreach (var action in ClickActions) action();
+        
     }
 
 
     public void Render()
     {
         Console.SetCursorPosition(X, Y);
-        for (int i = 0; i < CalculateProgressCharNumber(); i++) Console.Write(Character);
+        Console.ForegroundColor = ConsoleColor.Blue;
         
-        Console.SetCursorPosition(X, Y);
-        Console.Write("-");
+        Console.Write((char)BoxCharacters.RightT);
+        for (int i = 0; i < CalculateProgressCharNumber(); i++) Console.Write(Character);
+
+        Console.SetCursorPosition(X + Length + 1, Y);
+        Console.Write($"{(char)BoxCharacters.LeftT} {Math.Ceiling((float)Steps/TotalSteps*100)}%({Steps}/{TotalSteps})");
+            
+        Console.ResetColor();
+
+            
     }
     public void FocusOn()
     {}

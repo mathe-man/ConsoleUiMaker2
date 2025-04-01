@@ -9,9 +9,10 @@ public static class Program
     public static void Main(string[] args)
     {
         //DebugCharacters();
+        //DebugText();
         
+        DebugProgressBar();
         
-        DebugText();
         Console.Read();
     }
 
@@ -34,6 +35,19 @@ public static class Program
         ConsoleUi.RunUi();
     }
 
+    public static void DebugProgressBar()
+    {
+        ProgressBar myFirstBar = new(2, 3, 10, 5);
+        myFirstBar.ClickActions.Add(() => { myFirstBar.Progress(); });
+        
+        ProgressBar mySecondBar = new(2, 5, 15, 25);
+        mySecondBar.ClickActions.Add(() => { mySecondBar.Progress(); });
+        
+        
+        ConsoleUi.RunUi();
+    }
+    
+    
     public static void DebugCharacters()
     {
         Console.WriteLine("Box characters: ");
