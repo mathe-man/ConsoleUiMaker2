@@ -52,7 +52,6 @@ public class ProgressBar : IUiElement
     public void Render()
     {
         Console.SetCursorPosition(X, Y);
-        Console.ForegroundColor = ConsoleColor.Blue;
         
         Console.Write((char)BoxCharacters.RightT);
         for (int i = 0; i < CalculateProgressCharNumber(); i++) Console.Write(Character);
@@ -60,7 +59,6 @@ public class ProgressBar : IUiElement
         Console.SetCursorPosition(X + Length + 1, Y);
         Console.Write($"{(char)BoxCharacters.LeftT} {Math.Ceiling((float)Steps/TotalSteps*100)}%({Steps}/{TotalSteps})");
             
-        Console.ResetColor();
 
             
     }
