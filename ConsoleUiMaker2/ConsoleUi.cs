@@ -32,14 +32,16 @@ public static class ConsoleUi
         
         while (true)
         {
+            ConsoleKeyInfo pressedKeyInfo = Console.ReadKey(true);
+
             foreach (var element in UiElementList)
             {
                 element.Render();
             }
+
+            UpdateCursor(pressedKeyInfo);
             
-            ConsoleKeyInfo pressedKeyInfo = Console.ReadKey(true);
-
-
+            
             if (pressedKeyInfo.Key == ConsoleKey.Tab)
             {
                 FocusOnElement();
@@ -49,10 +51,7 @@ public static class ConsoleUi
                 FocusedElement.Click();
             }
 
-
             foreach (var element in UiElementList)  element.HandleKey(pressedKeyInfo);
-            
-            UpdateCursor(pressedKeyInfo);
         }
  
     }
@@ -83,6 +82,7 @@ public static class ConsoleUi
 
     private static int _cursorX = 0;
     private static int _cursorY = 0;
+    public static ConsoleColor CursorColor = ConsoleColor.Yellow;
     private static void UpdateCursor(ConsoleKeyInfo keyInfo)
     {
         Console.SetCursorPosition(_cursorX, _cursorY);
@@ -99,8 +99,10 @@ public static class ConsoleUi
             case ConsoleKey.RightArrow:
                 if (_cursorX < Console.BufferWidth) _cursorX++; break;
         }
-        
+
+        Console.ForegroundColor = CursorColor;
         Console.SetCursorPosition(_cursorX, _cursorY);
         Console.Write("\u27a4");
+        Console.ResetColor();
     }
 }
