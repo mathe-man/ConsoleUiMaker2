@@ -86,16 +86,11 @@ public class Text : IUiElement
         {
             action();
         }
-        
     }
 
     public void HandleKey(ConsoleKeyInfo keyInfo)
     {
-        if (keyInfo.KeyChar == Content[0].ToCharArray().First())
-        {
-            
-            ConsoleUi.FocusOnElement(this);
-        }
+        
     }
     
     public void Render()
@@ -112,8 +107,9 @@ public class Text : IUiElement
 
     public void FocusOn()
     {
+        Console.ForegroundColor = ConsoleColor.Cyan;
         Render();
-        DrawBorder();
+        Console.ResetColor();
     }
 
     public void FocusOff()

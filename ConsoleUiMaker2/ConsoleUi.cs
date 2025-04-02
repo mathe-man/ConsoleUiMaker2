@@ -38,15 +38,13 @@ public static class ConsoleUi
             {
                 element.Render();
             }
-
+            
+            //Cursor management
             UpdateCursor(pressedKeyInfo);
             
             
-            if (pressedKeyInfo.Key == ConsoleKey.Tab)
-            {
-                FocusOnElement();
-            }
-            else if (pressedKeyInfo.Key == ConsoleKey.Enter)
+            
+            if (pressedKeyInfo.Key == ConsoleKey.Enter)
             {
                 FocusedElement.Click();
             }
@@ -55,31 +53,7 @@ public static class ConsoleUi
         }
  
     }
-
-    public static void FocusOnElement(IUiElement? element = null)
-    {
-        if (element != null)
-        {
-            FocusedElement.FocusOff();
-            FocusedElement = element;
-            FocusedElement.FocusOn();
-        }
-        else if (UiElementList.Contains(FocusedElement))
-        {
-            FocusedElement.FocusOff();
-            if (UiElementList.IndexOf(FocusedElement) == UiElementList.Count - 1) FocusedElement = UiElementList[0];
-            else FocusedElement = UiElementList[UiElementList.IndexOf(FocusedElement) + 1];
-            FocusedElement.FocusOn();   
-        }
-        else
-        {
-            FocusedElement.FocusOff();
-            FocusedElement = UiElementList[0];
-            FocusedElement.FocusOn();
-        }
-    }
-
-
+    
     private static int _cursorX = 0;
     private static int _cursorY = 0;
     public static ConsoleColor CursorColor = ConsoleColor.Yellow;
@@ -100,9 +74,23 @@ public static class ConsoleUi
                 if (_cursorX < Console.BufferWidth) _cursorX++; break;
         }
 
+        FocusElement();
+        FocusedElement.FocusOn();
+        
         Console.ForegroundColor = CursorColor;
         Console.SetCursorPosition(_cursorX, _cursorY);
         Console.Write("\u27a4");
         Console.ResetColor();
+    }
+
+    private static void FocusElement()
+    {
+        foreach (var element in UiElementList)
+        {
+            if (element.X == _cursorX+1 && element.Y == _cursorY)
+            {
+                FocusedElement =  element;
+            }
+        }
     }
 }
