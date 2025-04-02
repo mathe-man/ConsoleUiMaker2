@@ -62,4 +62,23 @@ public static class Program
             Console.WriteLine($"{character}: {(char)character}");
         }
     }
+
+    public static void DebugCursor()
+    {
+        Text myFirstText = new Text(["A text"], 4, 2);
+        myFirstText.ClickActions.Add(() =>
+        {
+            Console.SetCursorPosition(0, 0);
+            Console.Write("A");
+        });
+        Text mySecondText = new Text(["B text"], 4, 4);
+        mySecondText.ClickActions.Add(() =>
+        {
+            Console.SetCursorPosition(0, 0);
+            Console.Write("B");
+        });
+        
+        
+        ConsoleUi.RunUi();
+    }
 }
