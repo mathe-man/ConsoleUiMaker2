@@ -27,14 +27,16 @@ public static class ConsoleUi
         Console.CursorVisible = false;
         
         FocusedElement = UiElementList[0];
-        foreach (var element in UiElementList)
-        {
-            element.Render();
-        }
+        
     
         
         while (true)
         {
+            foreach (var element in UiElementList)
+            {
+                element.Render();
+            }
+            
             ConsoleKeyInfo pressedKeyInfo = Console.ReadKey(true);
 
 
@@ -50,7 +52,7 @@ public static class ConsoleUi
 
             foreach (var element in UiElementList)  element.HandleKey(pressedKeyInfo);
             
-            
+            UpdateCursor(pressedKeyInfo);
         }
  
     }
@@ -78,5 +80,27 @@ public static class ConsoleUi
         }
     }
 
-    
+
+    private static int _cursorX = 0;
+    private static int _cursorY = 0;
+    private static void UpdateCursor(ConsoleKeyInfo keyInfo)
+    {
+        Console.SetCursorPosition(_cursorX, _cursorY);
+        Console.Write(' ');
+        switch (keyInfo.Key)
+        {
+            case ConsoleKey.UpArrow: 
+                if(_cursorY > 0) _cursorY--; break;
+            case ConsoleKey.DownArrow:
+                if (_cursorY < Console.BufferHeight) _cursorY++; break;
+            
+            case ConsoleKey.LeftArrow:
+                if (_cursorX > 0) _cursorX--; break;
+            case ConsoleKey.RightArrow:
+                if (_cursorX < Console.BufferWidth) _cursorX++; break;
+        }
+        
+        Console.SetCursorPosition(_cursorX, _cursorY);
+        Console.Write("\u27a4");
+    }
 }
