@@ -89,7 +89,9 @@ public static class ConsoleUi
         {
             if (element.X == _cursorX+1 && element.Y == _cursorY)
             {
+                var pastElement = FocusedElement;
                 FocusedElement =  element;
+                pastElement.Render();
             }
         }
     }

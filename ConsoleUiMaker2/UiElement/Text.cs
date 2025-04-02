@@ -41,6 +41,10 @@ public class Text : IUiElement
             {RemoveBorder();}
         }
     }
+
+    public (ConsoleColor Foreground, ConsoleColor Background) FocusOnColors = (ConsoleColor.Black, ConsoleColor.White);
+    public (ConsoleColor Foreground, ConsoleColor Background) FocusOffColors = (ConsoleColor.White, ConsoleColor.Black);
+    
     
     
     public Text(List<string> content, int x, int y, bool alwayShowBorder = false, List<Action>? clickActions = null, string borderType = "box")
@@ -96,6 +100,12 @@ public class Text : IUiElement
     public void Render()
     {
         Console.SetCursorPosition(X, Y);
+
+        if (ConsoleUi.FocusedElement == this)
+        {Console.ForegroundColor = FocusOnColors.Foreground; Console.BackgroundColor = FocusOnColors.Background;}
+        else
+        {Console.ForegroundColor = FocusOffColors.Foreground; Console.BackgroundColor = FocusOffColors.Background;}
+
         
         for (int i = 0; i < Content.Count; i++)
         {
@@ -103,21 +113,15 @@ public class Text : IUiElement
             Console.Write(Content[i]);
         }
         if (_permanentBorder) DrawBorder();
+        
+        Console.ResetColor();
     }
 
     public void FocusOn()
     {
-        Console.ForegroundColor = ConsoleColor.Cyan;
         Render();
-        Console.ResetColor();
     }
-
-    public void FocusOff()
-    {
-        Render();
-        if (!_permanentBorder) RemoveBorder();
-    }
-
+    
     public void DrawBorder()
     {
         string upBorder = "";

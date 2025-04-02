@@ -14,5 +14,4 @@ public interface IUiElement
     
     public void Render();
     public void FocusOn();
-    public void FocusOff();
 }

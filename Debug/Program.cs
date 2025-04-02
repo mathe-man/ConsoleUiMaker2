@@ -72,13 +72,18 @@ public static class Program
             Console.SetCursorPosition(0, 0);
             Console.Write("A");
         });
+        myFirstText.FocusOnColors = (ConsoleColor.Yellow, ConsoleColor.Black);
+        
+        
+        
         Text mySecondText = new Text(["B text"], 4, 4);
         mySecondText.ClickActions.Add(() =>
         {
             Console.SetCursorPosition(0, 0);
             Console.Write("B");
         });
-        
+        mySecondText.FocusOnColors = (ConsoleColor.Blue, ConsoleColor.Black);
+
         
         ConsoleUi.RunUi();
     }
