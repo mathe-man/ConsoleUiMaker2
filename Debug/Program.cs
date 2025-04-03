@@ -27,8 +27,8 @@ public static class Program
         
         myFirstText.ClickActions.Add(() =>
         {
-            myFirstText.PermanentBorder = !myFirstText.PermanentBorder;
-            if (myFirstText.PermanentBorder) myFirstText.Content = ["Border is permanent"];
+            myFirstText.HaveBorder = !myFirstText.HaveBorder;
+            if (myFirstText.HaveBorder) myFirstText.Content = ["Border is permanent"];
             else myFirstText.Content = ["Border isn't permanent       "];
             myFirstText.Render();
         });
@@ -66,7 +66,7 @@ public static class Program
 
     public static void DebugCursor()
     {
-        Text myFirstText = new Text(["A text"], 4, 2, alwayShowBorder:true, borderType:"round");
+        Text myFirstText = new Text(["A text"], 4, 2, haveBorder:true, borderType:"round");
         myFirstText.ClickActions.Add(() =>
         {
             Console.SetCursorPosition(0, 0);
@@ -76,7 +76,7 @@ public static class Program
         
         
         
-        Text mySecondText = new Text(["B text"], 4, 6, alwayShowBorder:true, borderType:"round");
+        Text mySecondText = new Text(["B text"], 4, 6, haveBorder:true, borderType:"round");
         mySecondText.ClickActions.Add(() =>
         {
             Console.SetCursorPosition(0, 0);
@@ -85,7 +85,7 @@ public static class Program
         mySecondText.FocusOnColors = (ConsoleColor.Blue, ConsoleColor.Black);
 
 
-        Text myThirdText = new Text(["Just a label"], 15, 2, alwayShowBorder: true, borderType: "round");
+        Text myThirdText = new Text(["Just a label"], 15, 2, haveBorder: true, borderType: "round");
         myThirdText.FocusOnColors = (ConsoleColor.Magenta, ConsoleColor.Black);
         
         ConsoleUi.RunUi();
