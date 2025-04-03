@@ -89,7 +89,7 @@ public static class ConsoleUi
     {
         foreach (var element in UiElementList)
         {
-            if (element.X == _cursorX+1 && element.Y == _cursorY)
+            if (element.X == _cursorX+2 && element.Y == _cursorY)
             {
                 var pastElement = FocusedElement;
                 FocusedElement =  element;

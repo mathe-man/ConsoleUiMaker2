@@ -114,6 +114,10 @@ public class Text : IUiElement
         }
         if (_haveBorder) DrawBorder();
         
+        
+        Console.SetCursorPosition(X, Y);
+        Console.Write("\u29eb");
+        
         Console.ResetColor();
     }
 
