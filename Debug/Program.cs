@@ -66,7 +66,7 @@ public static class Program
 
     public static void DebugCursor()
     {
-        Text myFirstText = new Text(["A text"], 4, 2);
+        Text myFirstText = new Text(["A text"], 4, 2, alwayShowBorder:true, borderType:"round");
         myFirstText.ClickActions.Add(() =>
         {
             Console.SetCursorPosition(0, 0);
@@ -76,7 +76,7 @@ public static class Program
         
         
         
-        Text mySecondText = new Text(["B text"], 4, 4);
+        Text mySecondText = new Text(["B text"], 4, 6, alwayShowBorder:true, borderType:"round");
         mySecondText.ClickActions.Add(() =>
         {
             Console.SetCursorPosition(0, 0);
@@ -84,6 +84,9 @@ public static class Program
         });
         mySecondText.FocusOnColors = (ConsoleColor.Blue, ConsoleColor.Black);
 
+
+        Text myThirdText = new Text(["Just a label"], 15, 2, alwayShowBorder: true, borderType: "round");
+        myThirdText.FocusOnColors = (ConsoleColor.Magenta, ConsoleColor.Black);
         
         ConsoleUi.RunUi();
     }
