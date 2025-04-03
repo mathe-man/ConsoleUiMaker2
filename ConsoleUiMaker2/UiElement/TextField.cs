@@ -1,35 +1,15 @@
-
 using ConsoleUiMaker2.Characters;
 
 namespace ConsoleUiMaker2.UiElement;
 
-public class Text : IUiElement
+public class TextField : IUiElement
 {
-    public int X {get; set;}
-    public int Y {get; set;}
+    public int X { get; set; }
+    public int Y { get; set; }
     
-    public List<Action> ClickActions {get; set;}
-
-
-    private List<string> _content = ["No content set for this element"];
-    public List<string> Content
-    {
-        get { return _content;}
-        set
-        {
-            _content = value;
-            foreach (var line in value)
-            {
-                if (line.Length >Length) Length = line.Length;
-            }
-        }
-    }
-
-    public int Length;
-
-    public Dictionary<string , char> Borders = new ();
+    public List<Action> ClickActions { get; set; }
     
-    private bool _haveBorder;
+    private bool _haveBorder = true;
 
     public bool HaveBorder
     {
@@ -37,30 +17,72 @@ public class Text : IUiElement
         set
         {
             _haveBorder = value;
-            if (ConsoleUi.FocusedElement != this)
-            {RemoveBorder();}
+            if (_haveBorder) DrawBorder();
+            else RemoveBorder();
         }
     }
-
-    public (ConsoleColor Foreground, ConsoleColor Background) FocusOnColors = (ConsoleColor.Cyan, ConsoleColor.Black);
-    public (ConsoleColor Foreground, ConsoleColor Background) FocusOffColors = (ConsoleColor.White, ConsoleColor.Black);
+    public bool FixedBorder { get; set; }
     
+    public int Length { get; set; }
+    public bool IsWriting { get; set; }
+    public string PlaceHolder { get; set; }
+    public string Content { get; set; } = "";
     
-    
-    public Text(List<string> content, int x, int y, bool haveBorder = true, List<Action>? clickActions = null, string borderType = "box")
+    public TextField(int x, int y, int length, string? placeHolder = null, bool haveBorder = true, bool startWriting = false, bool fixedBorder = false, string borderType = "round")
     {
         X = x;
         Y = y;
-        Content = content;
-
-        HaveBorder = haveBorder;
+        Length = length;
+        PlaceHolder = placeHolder ?? "";
+        IsWriting = startWriting;
+        ClickActions = new List<Action>();
+        Content = "";
         
-        ClickActions = clickActions == null ? new List<Action>() : clickActions;
         SetBorders(borderType);
+        HaveBorder = haveBorder;
+        FixedBorder = fixedBorder;
         
         ConsoleUi.UiElementList.Add(this);
     }
+
+    public void HandleKey(ConsoleKeyInfo keyInfo)
+    {
+        if (keyInfo.Key == ConsoleKey.Enter) IsWriting = false;
+        if (ConsoleUi.FocusedElement == this)
+        {
+            if (keyInfo.Key == ConsoleKey.Backspace && Content.Length > 0)
+                Content = Content[..^1];
+            else if (Content.Length < Length && !char.IsControl(keyInfo.KeyChar))
+                Content += keyInfo.KeyChar;
+        }
+        Render();
+    }
+
+    public void Render()
+    {
+
+        if (ConsoleUi.FocusedElement == this) Console.ForegroundColor = ConsoleColor.Red;
+        
+        if (HaveBorder) DrawBorder();
+        Console.SetCursorPosition(X, Y);
+        Console.Write(Content.PadRight(Length));
+        
+        Console.ResetColor();
+    }
+
+    public void Click()
+    {
+        IsWriting = true;
+    }
+
+    public void FocusOn()
+    {
+        Render();
+        
+        Click();
+    }
     
+    public Dictionary<string , char> Borders = new ();
     public void SetBorders(string type)
     {
         if (type == "box")
@@ -84,79 +106,34 @@ public class Text : IUiElement
     }
 
 
-    public void Click()
-    {
-        foreach (var action in ClickActions)
-        {
-            action();
-        }
-    }
 
-    public void HandleKey(ConsoleKeyInfo keyInfo)
-    {
-        
-    }
-    
-    public void Render()
-    {
-        Console.SetCursorPosition(X, Y);
-
-        if (ConsoleUi.FocusedElement == this)
-        {Console.ForegroundColor = FocusOnColors.Foreground; Console.BackgroundColor = FocusOnColors.Background;}
-        else
-        {Console.ForegroundColor = FocusOffColors.Foreground; Console.BackgroundColor = FocusOffColors.Background;}
-
-        
-        for (int i = 0; i < Content.Count; i++)
-        {
-            Console.SetCursorPosition(X, Y + i);
-            Console.Write(Content[i]);
-        }
-        if (_haveBorder) DrawBorder();
-        
-        Console.ResetColor();
-    }
-
-    public void FocusOn()
-    {
-        Render();
-    }
-    
     public void DrawBorder()
     {
-        string upBorder = "";
-        for (int i = 0; i < Length; i++) upBorder += Borders["Horizontal"];
-        
+        string upBorder = new string(Borders["Horizontal"], Length);
         //Sides
         try
         {
-            Console.SetCursorPosition(X, Y - 1);
+            Console.SetCursorPosition(X, Y-1);
             Console.Write(upBorder);
         }
         catch (ArgumentOutOfRangeException) {}
         try
         {
             
-            Console.SetCursorPosition(X, Y + Content.Count);
+            Console.SetCursorPosition(X, Y+1);
             Console.Write(upBorder);
         }
         catch (ArgumentOutOfRangeException) {}
         try
         {
-            for (int i = 0; i < Content.Count; i++)
-            {
-                Console.SetCursorPosition(X - 1, Y + i);
-                Console.Write(Borders["Vertical"]);
-            }
+            Console.SetCursorPosition(X + Length, Y);
+            Console.Write(Borders["Vertical"]);
         }
         catch (ArgumentOutOfRangeException) {}
         try
         {
-            for (int i = 0; i < Content.Count; i++)
-            {
-                Console.SetCursorPosition(X + Length, Y + i);
-                Console.Write(Borders["Vertical"]);
-            }
+            Console.SetCursorPosition(X -1, Y);
+            Console.Write(Borders["Vertical"]);
         }
         catch (ArgumentOutOfRangeException) {}
         
@@ -169,7 +146,7 @@ public class Text : IUiElement
         catch (ArgumentOutOfRangeException) {}
         try
         {
-            Console.SetCursorPosition(X-1, Y+Content.Count);
+            Console.SetCursorPosition(X-1, Y+1);
             Console.Write(Borders["BottomLeftCorner"]);
         }
         catch (ArgumentOutOfRangeException) {}
@@ -181,7 +158,7 @@ public class Text : IUiElement
         catch (ArgumentOutOfRangeException) {}
         try
         {
-            Console.SetCursorPosition(X+Length, Y+Content.Count);
+            Console.SetCursorPosition(X+Length, Y+1);
             Console.Write(Borders["BottomRightCorner"]);
         }
         catch (ArgumentOutOfRangeException) {}
@@ -190,8 +167,7 @@ public class Text : IUiElement
 
     public void RemoveBorder()
     {
-        string upBorder = "";
-        for (int i = 0; i < Length; i++) upBorder += " ";
+        string upBorder = new string(Borders["Horizontal"], Length);
         
         //Box sides
         try
@@ -203,26 +179,20 @@ public class Text : IUiElement
         try
         {
             
-            Console.SetCursorPosition(X, Y + Content.Count);
+            Console.SetCursorPosition(X, Y + 1);
             Console.Write(upBorder);
         }
         catch (ArgumentOutOfRangeException) {}
         try
         {
-            for (int i = 0; i < Content.Count; i++)
-            {
-                Console.SetCursorPosition(X - 1, Y + i);
-                Console.Write(" ");
-            }
+            Console.SetCursorPosition(X - 1, Y);
+            Console.Write(" ");
         }
         catch (ArgumentOutOfRangeException) {}
         try
         {
-            for (int i = 0; i < Content.Count; i++)
-            {
-                Console.SetCursorPosition(X + Length, Y + i);
-                Console.Write(" ");
-            }
+            Console.SetCursorPosition(X + Length, Y);
+            Console.Write(" ");
         }
         catch (ArgumentOutOfRangeException) {}
         
@@ -235,7 +205,7 @@ public class Text : IUiElement
         catch (ArgumentOutOfRangeException) {}
         try
         {
-            Console.SetCursorPosition(X-1, Y+Content.Count);
+            Console.SetCursorPosition(X-1, Y+1);
             Console.Write(" ");
         }
         catch (ArgumentOutOfRangeException) {}
@@ -247,30 +217,11 @@ public class Text : IUiElement
         catch (ArgumentOutOfRangeException) {}
         try
         {
-            Console.SetCursorPosition(X+Length, Y+Content.Count);
+            Console.SetCursorPosition(X+Length, Y+1);
             Console.Write(" ");
         }
         catch (ArgumentOutOfRangeException) {}
         
     }
+
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

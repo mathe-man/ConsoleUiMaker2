@@ -37,6 +37,8 @@ public static class ConsoleUi
             foreach (var element in UiElementList)
             {
                 element.Render();
+                Console.SetCursorPosition(element.X, element.Y);
+                Console.Write("\u25c9");
             }
             
             //Cursor management
