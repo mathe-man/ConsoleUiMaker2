@@ -67,6 +67,9 @@ public class TextField : IUiElement
         Console.SetCursorPosition(X, Y);
         Console.Write(Content.PadRight(Length));
         
+        
+        Console.SetCursorPosition(X-1, Y);
+        Console.Write("\u29eb");
         Console.ResetColor();
     }
 
