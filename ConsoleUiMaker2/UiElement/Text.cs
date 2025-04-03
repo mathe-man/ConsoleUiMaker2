@@ -42,7 +42,7 @@ public class Text : IUiElement
         }
     }
 
-    public (ConsoleColor Foreground, ConsoleColor Background) FocusOnColors = (ConsoleColor.Black, ConsoleColor.White);
+    public (ConsoleColor Foreground, ConsoleColor Background) FocusOnColors = (ConsoleColor.Cyan, ConsoleColor.Black);
     public (ConsoleColor Foreground, ConsoleColor Background) FocusOffColors = (ConsoleColor.White, ConsoleColor.Black);
     
     
