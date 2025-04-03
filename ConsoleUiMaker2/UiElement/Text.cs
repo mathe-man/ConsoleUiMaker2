@@ -29,14 +29,14 @@ public class Text : IUiElement
 
     public Dictionary<string , char> Borders = new ();
     
-    private bool _permanentBorder;
+    private bool _haveBorder;
 
-    public bool PermanentBorder
+    public bool HaveBorder
     {
-        get { return _permanentBorder;}
+        get { return _haveBorder;}
         set
         {
-            _permanentBorder = value;
+            _haveBorder = value;
             if (ConsoleUi.FocusedElement != this)
             {RemoveBorder();}
         }
@@ -47,13 +47,13 @@ public class Text : IUiElement
     
     
     
-    public Text(List<string> content, int x, int y, bool alwayShowBorder = false, List<Action>? clickActions = null, string borderType = "box")
+    public Text(List<string> content, int x, int y, bool haveBorder = true, List<Action>? clickActions = null, string borderType = "box")
     {
         X = x;
         Y = y;
         Content = content;
 
-        PermanentBorder = alwayShowBorder;
+        HaveBorder = haveBorder;
         
         ClickActions = clickActions == null ? new List<Action>() : clickActions;
         SetBorders(borderType);
@@ -112,7 +112,7 @@ public class Text : IUiElement
             Console.SetCursorPosition(X, Y + i);
             Console.Write(Content[i]);
         }
-        if (_permanentBorder) DrawBorder();
+        if (_haveBorder) DrawBorder();
         
         Console.ResetColor();
     }
