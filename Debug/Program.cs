@@ -36,6 +36,14 @@ public static class Program
         ConsoleUi.RunUi();
     }
 
+    public static void DebugTextField()
+    {
+        TextField myFirstField = new(2, 2, 20);
+        
+        TextField mySecondField = new(5, 5, 25);
+        
+        ConsoleUi.RunUi();
+    }
     public static void DebugProgressBar()
     {
         ProgressBar myFirstBar = new(2, 3, 10, 5);
