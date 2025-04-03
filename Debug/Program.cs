@@ -10,8 +10,9 @@ public static class Program
     {
         //DebugCharacters();
         //DebugText();
+        DebugTextField();
         //DebugProgressBar();
-        DebugCursor();
+        //DebugCursor();
         
         
         Console.Read();
